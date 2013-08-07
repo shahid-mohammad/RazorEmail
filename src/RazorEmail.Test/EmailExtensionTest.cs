@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Mail;
 using System.Threading;
@@ -47,7 +48,7 @@ namespace RazorEmail.Test
         {
             var email = new Email
                             {
-                                Headers = new[]
+                                Headers = new List<Email.Header>
                                               {
                                                   new Email.Header {Key = "a", Value = "A"},
                                                   new Email.Header {Key = "b", Value = "B"}

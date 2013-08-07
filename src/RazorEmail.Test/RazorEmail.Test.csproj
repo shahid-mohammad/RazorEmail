@@ -66,7 +66,9 @@
     <None Include="Templates\test_master_content_layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\Bcc.xml" />
+    <Content Include="Templates\Bcc.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Templates\Cc.xml" />
     <Content Include="Templates\test_master_content.xml" />
     <Content Include="Templates\multpleToAddresses.xml" />
@@ -80,6 +82,9 @@
       <Project>{0B4C7E49-DDCA-4397-A75E-CB13A841AB3A}</Project>
       <Name>RazorEmail</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Templates\Welcome\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

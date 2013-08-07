@@ -9,7 +9,7 @@ namespace RazorEmail
     {
         public static Email WithHeader(this Email email, string key, string value)
         {
-            email.Headers = email.Headers.Union(new[] {new Email.Header {Key = key, Value = value}}).ToArray();
+            email.Headers.Add(new Email.Header {Key = key, Value = value});
             return email;
         }
 

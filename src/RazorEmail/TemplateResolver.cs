@@ -6,21 +6,21 @@ namespace RazorEmail
 {
     public class TemplateResolver : ITemplateResolver
     {
-        private readonly string baseDir;
+        private readonly string _templateDir;
 
-        public TemplateResolver(string baseDir)
+        public TemplateResolver(string templateDir)
         {
-            if (baseDir == null) throw new ArgumentNullException("baseDir");
+            if (templateDir == null) throw new ArgumentNullException("templateDir");
 
-            this.baseDir = baseDir;
+            this._templateDir = templateDir;
 
-            if (!Directory.Exists(baseDir))
-                throw new ArgumentException(String.Format("The template directory does not exist! - {0} , Full path: {1}", baseDir, Path.GetFullPath(baseDir)));
+            if (!Directory.Exists(templateDir))
+                throw new ArgumentException(String.Format("The template directory does not exist! - {0} , Full path: {1}", templateDir, Path.GetFullPath(templateDir)));
         }
 
         public string Resolve(string name)
         {
-            var path = Path.Combine(baseDir, name);
+            var path = Path.Combine(_templateDir, name);
 
             if (File.Exists(path))
                 return File.ReadAllText(path);

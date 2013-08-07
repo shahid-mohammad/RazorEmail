@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using RazorEmail;
 
 namespace SampleApp
@@ -21,21 +22,23 @@ namespace SampleApp
                                                  }
                         };
 
+	        var templateDir = ConfigurationManager.AppSettings["razor.email.base.dir"];
 
-            RazorMailer.Build("Welcome", new { Link = "http://www.jobping.com" }, "john.doe@test.com", "John Doe")
-                       .ToMailMessage()
-                       .Send();
+	        var mailer = new RazorMailer(templateDir);
 
-                    RazorMailer .Build("ForgotPassword", mySampleModel,"john.doe@test.com", "John Doe")
-                        .WithHeader("X-RazorMail-Send-At", DateTime.Now.ToLongTimeString())
-                        .ToMailMessage()
-                        .SendAsync( (x, m) =>
-                                        {
-                                            Console.WriteLine(x);
-                                            Console.WriteLine("Message Subject: {0}, Send around: {1}", m.Subject, m.Headers["X-RazorMail-Send-At"]);
-                                        }, 
-                                        "Sent John Doe his forgot password message")
-                        ;
+	        mailer.Create("Welcome", new {Link = "http://www.jobping.com"}, "Reset Password Request @Model.Link", "john.doe@test.com", "John Doe")
+	              .ToMailMessage()
+	              .Send();
+
+	        mailer.Create("ForgotPassword", mySampleModel, "Reset Password Request @Model.Link", "john.doe@test.com", "John Doe")
+	              .WithHeader("X-RazorMail-Send-At", DateTime.Now.ToLongTimeString())
+	              .ToMailMessage()
+	              .SendAsync((x, m) =>
+		              {
+			              Console.WriteLine(x);
+			              Console.WriteLine("Message Subject: {0}, Send around: {1}", m.Subject, m.Headers["X-RazorMail-Send-At"]);
+		              },
+	                         "Sent John Doe his forgot password message");
         }
     }
 }

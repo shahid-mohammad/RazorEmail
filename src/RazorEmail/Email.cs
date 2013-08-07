@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Mail;
 using System.Text;
 using System.Xml.Serialization;
@@ -30,7 +31,7 @@ namespace RazorEmail
         public Address[] To { get; set; }
 
         [XmlArray("headers"), XmlArrayItem("add")]
-        public Header[] Headers { get; set; }
+        public List<Header> Headers { get; set; }
 
         public class Header
         {
@@ -78,5 +79,10 @@ namespace RazorEmail
             [XmlAttribute("media-type")]
             public string MediaType { get; set; }
         }
+
+	    public Email()
+	    {
+			Headers = new List<Header>();
+	    }
     }
 }
